@@ -7,12 +7,22 @@ const Part = (props) => (<p>{props.option} {props.qty}</p>)
 
 
 const Statistics = (props) => {
+  const all= props.good + props.neutral + props.bad;
+  const average = () => {
+    return all > 0?(props.good - props.bad) / all :0;
+  }
+  const positive = () => {
+    return props.good > 0?((props.good) / all * 100)+"%": 0;
+  }
   return (
   <>
     <h2>{props.h2}</h2>
     <Part option={props.comments.good} qty={props.good} />
     <Part option={props.comments.neutral} qty={props.neutral} />
     <Part option={props.comments.bad} qty={props.bad} />
+    <Part option={props.comments.all} qty={all} />
+    <Part option={props.comments.average} qty={average()}/>
+    <Part option={props.comments.positive} qty={positive()}/>
   </>
   )
 }
@@ -20,10 +30,13 @@ const App = () => {
 
   const h1="give feedback"
   const h2="statistics"
-  const comments = {
+  const commentsText = {
     good: "good",
     neutral: "neutral",
-    bad: "bad"
+    bad: "bad",
+    all: "all",
+    average: "average",
+    positive: "positive"
   }
   const handleGood = () =>{
     setGood(good + 1)
@@ -44,10 +57,10 @@ const App = () => {
   return (
     <div>
       <Header text={h1} />
-      <Button onClick={handleGood} text={comments.good} />
-      <Button onClick={handleNeutral} text={comments.neutral} />
-      <Button onClick={handleBad} text={comments.bad} />
-      <Statistics h2={h2} comments={comments} good={good} neutral={neutral} bad={bad}/>
+      <Button onClick={handleGood} text={commentsText.good} />
+      <Button onClick={handleNeutral} text={commentsText.neutral} />
+      <Button onClick={handleBad} text={commentsText.bad} />
+      <Statistics h2={h2} comments={commentsText} good={good} neutral={neutral} bad={bad}/>
     </div>
   )
 }
