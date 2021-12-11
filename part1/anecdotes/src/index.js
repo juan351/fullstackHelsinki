@@ -8,7 +8,7 @@ const App = (props) => {
   const random = (min, max) => Math.floor((Math.random() * (max - min + 1)) + min)
 
   const selectAnecdote = () => {
-    setSelected(random(0,5));
+    setSelected(random(0,anecdotes.length - 1));
   }
 
   
