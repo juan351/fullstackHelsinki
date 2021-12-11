@@ -4,19 +4,28 @@ import ReactDOM from 'react-dom'
 const Button = ({onClick, text}) => (<button onClick={onClick}>{text}</button>)
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
   const random = (min, max) => Math.floor((Math.random() * (max - min + 1)) + min)
 
   const selectAnecdote = () => {
     setSelected(random(0,5));
-    console.log(selected)
+  }
+
+  
+  const voteAnecdote = () => {
+    const copy = [...votes]
+    copy[selected] +=1
+    setVotes(copy)
   }
 
   return (
     <>
-    <Button onClick={selectAnecdote} text="next anecdote" />
     <div>
       {props.anecdotes[selected]}
-    </div></>
+    </div>
+    <Button onClick={voteAnecdote} text="vote" />
+    <Button onClick={selectAnecdote} text="next anecdote" />
+    </>
   )
 }
 
