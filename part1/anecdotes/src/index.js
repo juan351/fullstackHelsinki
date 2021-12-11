@@ -16,15 +16,31 @@ const App = (props) => {
     const copy = [...votes]
     copy[selected] +=1
     setVotes(copy)
+    console.log(copy)
   }
+
+  const Votes = ({votes}) => (<p>has {votes} votes</p>)  
+  
+  function getMaxOfArray(numArray) {
+    return Math.max.apply(null, numArray);
+  }
+  
 
   return (
     <>
+    <h1>Anecdote of the day</h1>
     <div>
       {props.anecdotes[selected]}
+      <Votes votes={votes[selected]}/>
     </div>
     <Button onClick={voteAnecdote} text="vote" />
     <Button onClick={selectAnecdote} text="next anecdote" />
+    <h2>Anecdote with most votes</h2>
+    <div>
+      {props.anecdotes[votes.indexOf(getMaxOfArray(votes))]}
+      <Votes votes={getMaxOfArray(votes)} />
+    </div>
+    
     </>
   )
 }
