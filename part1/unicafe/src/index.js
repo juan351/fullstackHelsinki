@@ -3,7 +3,14 @@ import ReactDOM from 'react-dom'
 
 const Header = ({text}) => (<h1>{text}</h1>)
 const Button = ({onClick, text}) => (<button onClick={onClick}>{text}</button>)
-const Statistic = ({text, value}) => (<p>{text} {value}</p>)
+const Statistic = ({text, value}) => {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
 const Part = ({text}) => (<p>{text}</p>)
 
 
@@ -19,12 +26,16 @@ const Statistics = (props) => {
     return (
       <>
         <h2>{props.h2}</h2>
-        <Statistic text={props.comments.good} value={props.good} />
-        <Statistic text={props.comments.neutral} value={props.neutral} />
-        <Statistic text={props.comments.bad} value={props.bad} />
-        <Statistic text={props.comments.all} value={all} />
-        <Statistic text={props.comments.average} value={average()}/>
-        <Statistic text={props.comments.positive} value={positive()}/>
+        <table>
+          <tbody>
+            <Statistic text={props.comments.good} value={props.good} />
+            <Statistic text={props.comments.neutral} value={props.neutral} />
+            <Statistic text={props.comments.bad} value={props.bad} />
+            <Statistic text={props.comments.all} value={all} />
+            <Statistic text={props.comments.average} value={average()}/>
+            <Statistic text={props.comments.positive} value={positive()}/>
+          </tbody>
+        </table>
       </>
       )
   }
