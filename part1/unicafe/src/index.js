@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 
 const Header = ({text}) => (<h1>{text}</h1>)
 const Button = ({onClick, text}) => (<button onClick={onClick}>{text}</button>)
-const Part = (props) => (<p>{props.option} {props.qty}</p>)
+const Statistic = ({text, value}) => (<p>{text} {value}</p>)
+const Part = ({text}) => (<p>{text}</p>)
 
 
 const Statistics = (props) => {
@@ -12,23 +13,23 @@ const Statistics = (props) => {
     return (props.good - props.bad) / all;
   }
   const positive = () => {
-    return props.good > 0?((props.good) / all * 100)+"%": 0;
+    return props.good > 0?((props.good) / all * 100)+"%": String(0) + "%"; 
   }
   if (all >0){
     return (
       <>
         <h2>{props.h2}</h2>
-        <Part option={props.comments.good} qty={props.good} />
-        <Part option={props.comments.neutral} qty={props.neutral} />
-        <Part option={props.comments.bad} qty={props.bad} />
-        <Part option={props.comments.all} qty={all} />
-        <Part option={props.comments.average} qty={average()}/>
-        <Part option={props.comments.positive} qty={positive()}/>
+        <Statistic text={props.comments.good} value={props.good} />
+        <Statistic text={props.comments.neutral} value={props.neutral} />
+        <Statistic text={props.comments.bad} value={props.bad} />
+        <Statistic text={props.comments.all} value={all} />
+        <Statistic text={props.comments.average} value={average()}/>
+        <Statistic text={props.comments.positive} value={positive()}/>
       </>
       )
   }
   
-  return (<><h2>{props.h2}</h2><p>No feedback given</p></>)
+  return (<><h2>{props.h2}</h2><Part text="No feedback given" /></>)
   
 }
 const App = () => {
