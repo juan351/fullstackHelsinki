@@ -9,22 +9,27 @@ const Part = (props) => (<p>{props.option} {props.qty}</p>)
 const Statistics = (props) => {
   const all= props.good + props.neutral + props.bad;
   const average = () => {
-    return all > 0?(props.good - props.bad) / all :0;
+    return (props.good - props.bad) / all;
   }
   const positive = () => {
     return props.good > 0?((props.good) / all * 100)+"%": 0;
   }
-  return (
-  <>
-    <h2>{props.h2}</h2>
-    <Part option={props.comments.good} qty={props.good} />
-    <Part option={props.comments.neutral} qty={props.neutral} />
-    <Part option={props.comments.bad} qty={props.bad} />
-    <Part option={props.comments.all} qty={all} />
-    <Part option={props.comments.average} qty={average()}/>
-    <Part option={props.comments.positive} qty={positive()}/>
-  </>
-  )
+  if (all >0){
+    return (
+      <>
+        <h2>{props.h2}</h2>
+        <Part option={props.comments.good} qty={props.good} />
+        <Part option={props.comments.neutral} qty={props.neutral} />
+        <Part option={props.comments.bad} qty={props.bad} />
+        <Part option={props.comments.all} qty={all} />
+        <Part option={props.comments.average} qty={average()}/>
+        <Part option={props.comments.positive} qty={positive()}/>
+      </>
+      )
+  }
+  
+  return (<><h2>{props.h2}</h2><p>No feedback given</p></>)
+  
 }
 const App = () => {
 
