@@ -36,15 +36,23 @@ const Content = ({ course }) => {
 const Course = ({course}) => {
   return(
     <div>
-      <Header course={course} />
-      <Content course={course.parts} />
-      <Total course={course.parts} />
+      {course.map(c=>{
+        return(
+          <div key={c.id}>
+          <Header course={c}/>
+          <Content course={c.parts} />
+          <Total course={c.parts} />
+          </div>
+        )
+        })}
+      
     </div>
   )
 }
 
 const App = () => {
-  const course = {
+  const course = [
+  {
     id: 1,
     name: 'Half Stack application development',
     parts: [
@@ -68,11 +76,27 @@ const App = () => {
         exercises: 11,
         id: 4,
       },
-      
     ]
-  }
+  },
+  {
+    name: 'Node.js',
+    id: 2,
+    parts: [
+      {
+        name: 'Routing',
+        exercises: 3,
+        id: 1,
+      },
+      {
+        name: 'Middlewares',
+        exercises: 7,
+        id: 2,
+      },
+    ],
+  },
+]
 
-  return <Course course={course} />
+  return <Course course={course}/>
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))
