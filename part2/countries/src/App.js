@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import Countries from './components/Countries'
 import axios from 'axios'
 
+
 const App = () => {
   const [ countries, setCountries ] = useState([]) 
   const [ filter, setFilter ] = useState('')
@@ -21,7 +22,7 @@ const App = () => {
   }, [])
 
   const countriesToShow = filter === '' ? [] : countries.filter(country => country['name'].common.toLowerCase().includes(filter.toLowerCase()))
-  console.log(countries)
+  
   return (
     <div>
       <Filter filter={filter} handleFilterChange={handleFilterChange}/>
