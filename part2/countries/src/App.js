@@ -8,6 +8,8 @@ const App = () => {
   const [ filter, setFilter ] = useState('')
 
   const handleFilterChange = (event) => setFilter(event.target.value)
+  const handleButtonClick = (event) => setFilter(event.target.value)
+
   
   
   useEffect(() => {
@@ -23,7 +25,7 @@ const App = () => {
   return (
     <div>
       <Filter filter={filter} handleFilterChange={handleFilterChange}/>
-      <Countries countriesToShow={countriesToShow}/>
+      <Countries countriesToShow={countriesToShow} onClick={handleButtonClick}/>
     </div>
   )
 }
