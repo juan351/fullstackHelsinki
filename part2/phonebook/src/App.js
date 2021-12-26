@@ -20,8 +20,13 @@ const App = () => {
         return alert(`${newName} is already added to phonebook`)
     }
     const personObject = {name: newName, number: phoneNumber}
-    setPersons(persons.concat(personObject))
-    setNewName('')
+
+    personService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+      })
   }
 
   useEffect(() => {
@@ -31,6 +36,20 @@ const App = () => {
         setPersons(initialPersons)
       })
   }, [])
+
+  const handleDelete = (event) => {
+    if (window.confirm(`Delete ${event.target.name}?`)){
+      personService
+      .deletePerson(event.target.value)
+      
+      personService
+      .getAll()
+      .then((initialPersons) => {
+        setPersons(initialPersons)
+      })
+    }
+    
+  }
 
   const personsToShow = filter === '' ? persons : persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
 
@@ -42,7 +61,7 @@ const App = () => {
       <PersonForm addPerson={addPerson} newName={newName} handleNameChange={handleNameChange} phoneNumber={phoneNumber} handlePhoneNumber={handlePhoneNumber}/>
       <h2>Numbers</h2>
       <div>
-      <Persons personsToShow={personsToShow} />
+      <Persons personsToShow={personsToShow} onDelete={handleDelete}/>
       </div>
     </div>
   )
