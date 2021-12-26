@@ -59,14 +59,31 @@ const App = () => {
 
   const handleDelete = (event) => {
     if (window.confirm(`Delete ${event.target.name}?`)){
+      let config = {
+        headers: {
+          'User-Agent':'',
+          'Accept': '',
+          'Host':''
+        }
+      }
       personService
-      .deletePerson(event.target.value)
-      
-      personService
+      .deletePerson(event.target.value, config)
+      .then(response => {
+        personService
       .getAll()
       .then((initialPersons) => {
         setPersons(initialPersons)
       })
+
+      })
+      .catch(error => {
+        setMessage({message: "error", name: event.target.name})
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      })
+      
+      
     }
     
   }
